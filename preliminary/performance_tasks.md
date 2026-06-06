@@ -48,10 +48,11 @@ Complete the steps below and fill in the `> block` sections
   >opencv-python>=4.13.0.92
   >
 7. Why did we use `uv add` over `uv pip`?
-  >
-  >
+  >uv pip installs a package into the virtual environment.
+  >uv add installs the package and updates the dependency into pyproject.toml, this ensure 
+  > this dependency reproduces in future projects
 8. The `numpy` library is required for OpenCV. Should you add an explicit requirement for it? Why/Why not?
-  >
+  >The numpy is not necessary because uv install that automatically
   >
 9. Commit the changes so far to git. Use the message `chore: add OpenCV dependency`
 10. Go to `preliminary/library_basics.py` and complete the required functionality.
