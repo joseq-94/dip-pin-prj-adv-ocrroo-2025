@@ -15,7 +15,7 @@ Make sure you read the docstrings C.A.R.E.F.U.L.Y (yes, I took the L to check th
 from pathlib import Path
 import cv2
 import numpy as np
-
+import pytesseract
 
 VID_PATH = Path("resources/name-of-vid-given-to-you-by-instructor.mp4")
 
@@ -90,8 +90,6 @@ class CodingVideo:
         return buf.tobytes()
 
 
-
-
     def save_as_image(self, seconds: int, output_path: Path | str = 'output.png') -> None:
         """Saves the given frame as a png image
 
@@ -105,6 +103,20 @@ class CodingVideo:
             raise ValueError("Invalid frame")
 
         cv2.imwrite(output_path, frame)
+
+    def get_text_of_image(self, seconds: int) -> str:
+        """Extracts text from a frame at the given time using Tesseract OCR."""
+        frame_number = self.get_frame_number_at_time(seconds)
+        self.capture.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
+
+        ok, frame = self.capture.read()
+        if not ok or frame is None:
+            raise ValueError("Invalid frame")
+
+        gray= cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        text = pytesseract.image_to_string(gray)
+        return text
+
 
 def test():
     """Try out your class here"""
