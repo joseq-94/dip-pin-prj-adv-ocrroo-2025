@@ -49,7 +49,7 @@ Complete the steps below and fill in the `> block` sections
   >
 7. Why did we use `uv add` over `uv pip`?
   >uv pip installs a package into the virtual environment.
-  >uv add installs the package and updates the dependency into pyproject.toml, this ensure 
+  >uv add installs the package and updates the dependency into pyproject.toml, this ensures 
   > this dependency reproduces in future projects
 8. The `numpy` library is required for OpenCV. Should you add an explicit requirement for it? Why/Why not?
   >The numpy is not necessary because uv install that automatically
@@ -68,13 +68,13 @@ Tesseract consists of both an OCR Engine and a command line program. It is predo
 1. Examine the [Readme](https://github.com/tesseract-ocr/tesseract?tab=readme-ov-file) and find a list of Python wrappers.
 
 2. What is the URL that lists Python wrappers for Tesseract?
-  > <url-here>
+  > <https://github.com/tesseract-ocr/tessdoc>
 
 3. Select a Python wrapper. What wrapper did you choose and why? Ensure you address each element below in your answer
-> name of the python library
-> how long ago was a commit made to the library
-> does it have external dependencies
-> how does it suite the project requirements
+> pytesseract
+> 4 months ago
+> Requires the Tesseract OCR engine to be installed on the system
+> It integrates cleanly with openCV, is easy to use, and provides the ocr functionality.
 
 4. Use UV to add the dependency to your project and your `pyproject.toml`
 
