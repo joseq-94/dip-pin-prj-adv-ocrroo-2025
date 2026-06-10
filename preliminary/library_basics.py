@@ -120,7 +120,7 @@ class CodingVideo:
 
 def test():
     """Try out your class here"""
-    oop = CodingVideo("resources/oop.mp4")
+    oop = CodingVideo("../resources/oop.mp4")
     print(oop)
     oop.save_as_image(42)
 
