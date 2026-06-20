@@ -20,6 +20,7 @@ These wireframes represent the main user flow for the OCR application.
 
 2. **Process Screen**
 ![img_1.png](img_1.png)
+
    - Loading indicator
    - Message: "Processing your image..."
 
