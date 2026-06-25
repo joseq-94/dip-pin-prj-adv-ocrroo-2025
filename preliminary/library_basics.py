@@ -17,7 +17,7 @@ import cv2
 import numpy as np
 import pytesseract
 
-VID_PATH = Path("resources/name-of-vid-given-to-you-by-instructor.mp4")
+VID_PATH = Path("../resources/oop.mp4")
 
 class CodingVideo:
     capture: cv2.VideoCapture
@@ -118,11 +118,14 @@ class CodingVideo:
         return text
 
 
-def test():
+def test(abs_path):
     """Try out your class here"""
-    oop = CodingVideo("../resources/oop.mp4")
+    video_path = Path(abs_path)
+    oop = CodingVideo(video_path)
     print(oop)
     oop.save_as_image(42)
+    text = oop.get_text_of_image(42)
+    print(text)
 
 if __name__ == '__main__':
-    test()
+    test("../resources/oop.mp4")

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video OCR Player</title>
+    <link rel="stylesheet" href="/resources/css/theme.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Video OCR Player</h1>
+
+    <!-- Video -->
+    <video id="videoPlayer" width="640" controls>
+        <source src="/resources/oop.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Time selection -->
+    <div class="time-box">
+        <label>Minutes:</label>
+        <input type="number" id="minutes" min="0" value="0">
+
+        <label>Seconds:</label>
+        <input type="number" id="seconds" min="0" max="59" value="0">
+
+        <button onclick="jumpToTime()">Go</button>
+    </div>
+
+    <!-- OCR -->
+    <button class="ocr-btn" onclick="runOCR()">Extract Text</button>
+
+    <!-- Result -->
+    <h3>OCR Result</h3>
+    <pre id="ocrResult">Press "Extract Text" to scan the current frame...</pre>
+
+</div>
+
+<script>
+function jumpToTime() {
+    const min = parseInt(document.getElementById("minutes").value) || 0;
+    const sec = parseInt(document.getElementById("seconds").value) || 0;
+    const total = min * 60 + sec;
+
+    const video = document.getElementById("videoPlayer");
+    video.currentTime = total;
+}
+
+async function runOCR() {
+    const video = document.getElementById("videoPlayer");
+    const t = Math.floor(video.currentTime);
+
+    const res = await fetch(`/video/demo/frame/${t}/ocr`);
+    const data = await res.json();
+
+    document.getElementById("ocrResult").textContent = data.text || "(No text detected)";
+}
+</script>
+
+</body>
+</html>

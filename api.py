@@ -8,17 +8,20 @@ Requirements
 from fastapi import FastAPI, HTTPException
 from fastapi import Response
 from pydantic import BaseModel
-from pathlib import Path
 from preliminary.library_basics import CodingVideo
 import pytesseract
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
+from pathlib import Path
 
 
 app = FastAPI()
 
+app.mount("/resources", StaticFiles(directory="resources"), name="resources")
 
-
+@app.get("/")
+async def home():
+    return FileResponse("resources/index.html")
 
 
 # We'll create a lightweight "database" for our videos
@@ -97,13 +100,6 @@ def video_frame(vid: str, t: float):
 def get_text(vid: str, t: int):
     video = _open_vid_or_404(vid)
     text = video.get_text_of_image(t)
-    return {"text": text}
-
-
-app.mount("/resources", StaticFiles(directory="resources"), name="resources")
-
-@app.get("/", include_in_schema=False)
-async def serve_home():
-    return FileResponse("index.html")
+    return JSONResponse ({"text": text})
 
 
